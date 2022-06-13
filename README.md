@@ -1,25 +1,8 @@
 # README
+Crypto portfolio with real-time data of the markets.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Set your current portfolio:
+- Choose any coins you own
+- Choose the amount
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-# crypto-portfolio
+Boom! You'll have your current value portfolio with real-time updates
