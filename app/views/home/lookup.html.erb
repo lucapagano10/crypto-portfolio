@@ -1,0 +1,16 @@
+<% require 'cryptocompare' %>
+<h3>Look for your Cryptocurrency</h3>
+<%= form_tag home_lookup_path, :method => 'POST' do %>
+  <%= text_field_tag 'sym', nil, placeholder: 'Enter Crypto Symbol', size: 50 %>
+  <%= submit_tag 'Lookup Crypto' %>
+<% end %>
+
+<div class= "result">
+  <% if @tickers.include? @symbol%>
+      <% @price = Cryptocompare::Price.find(@symbol, 'USD', { api_key: 'API_KEY' }) %>
+      <% @coin = Cryptocompare::Price.full(@symbol, 'USD') %>
+      <%= @coin["RAW"][@symbol]["USD"]["FROMSYMBOL"] %>: <%= @price[@symbol]["USD"] %><br>
+    <% else %>
+      <%= "" %>
+  <% end %>
+</div>
