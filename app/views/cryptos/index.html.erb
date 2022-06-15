@@ -1,0 +1,36 @@
+<% profit_loss = 0 %>
+
+<h1>Cryptos</h1>
+<br>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Cost per Coin</th>
+      <th>Market price</th>
+      <th>Amount owned</th>
+      <th>Current Value</th>
+      <th>Profit/Loss</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cryptos.each do |crypto| %>
+     <% if crypto.user_id == current_user.id %>
+      <tr>
+          <td><%= link_to Cryptocompare::Price.full(crypto.symbol.upcase, 'USD', { api_key: 'API_KEY' })["RAW"][crypto.symbol.upcase]["USD"]["FROMSYMBOL"], crypto %></td>
+          <td>$<%= crypto.cost_per %></td>
+          <td>$<%= Cryptocompare::Price.find(crypto.symbol.upcase, 'USD', { api_key: 'API_KEY' })[crypto.symbol.upcase]["USD"] %></td>
+          <td><%= crypto.amount_owned %></td>
+          <td>$<%= (Cryptocompare::Price.find(crypto.symbol.upcase, 'USD', { api_key: 'API_KEY' })[crypto.symbol.upcase]["USD"] * crypto.amount_owned) %></td>
+          <td><%= ((Cryptocompare::Price.find(crypto.symbol.upcase, 'USD', { api_key: 'API_KEY' })[crypto.symbol.upcase]["USD"] * crypto.amount_owned) - (crypto.cost_per * crypto.amount_owned)) %></td>
+          <td><% profit_loss += ((Cryptocompare::Price.find(crypto.symbol.upcase, 'USD', { api_key: 'API_KEY' })[crypto.symbol.upcase]["USD"] * crypto.amount_owned) - (crypto.cost_per * crypto.amount_owned)) %></td>
+      </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+<br>
+
+<strong>Portfolio Profit/Loss:  </strong><%= number_to_currency(profit_loss) %>
+<br><br>
+<%= link_to 'New Crypto', new_crypto_path, class: "btn btn-default" %>

@@ -23,6 +23,7 @@ class HomeController < ApplicationController
     #require 'coingecko_ruby'
     require 'cryptocompare'
     @tickers = ["BTC", "ETH", "XRP"]
+
     @symbol = params[:sym]
     if @symbol
       @symbol = @symbol.upcase
